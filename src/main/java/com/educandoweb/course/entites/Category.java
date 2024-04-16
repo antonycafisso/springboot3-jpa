@@ -17,8 +17,8 @@ public class Category {
     private Long id;
     private String name;
     @JsonIgnore
-    @Transient
-    private Set<Category> products = new HashSet<>();
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> products = new HashSet<>();
 
 
     public Category(){
@@ -46,7 +46,7 @@ public class Category {
         this.name = name;
     }
 
-    public Set<Category> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
