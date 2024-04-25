@@ -9,7 +9,6 @@ import java.util.*;
 @Entity
 @Table(name = "tb_category")
 public class Category {
-    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
