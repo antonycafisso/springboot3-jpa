@@ -3,19 +3,17 @@ package com.educandoweb.course.entites;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.educandoweb.course.entites.enums.OrderStatus;
+import com.educandoweb.course.entites.pk.OrderItem;
+import jakarta.persistence.*;
 import org.hibernate.annotations.ManyToAny;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import org.hibernate.property.access.spi.SetterMethodImpl;
 
 @Entity
 @Table(name = "tb_order")
@@ -34,6 +32,9 @@ public class Order implements Serializable{
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order(){
 
@@ -74,6 +75,10 @@ public class Order implements Serializable{
 
     public User getClient() {
         return client;
+    }
+
+    public Set<OrderItem> getItems(){
+        return items;
     }
 
     @Override
