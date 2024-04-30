@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.educandoweb.course.entites.enums.OrderStatus;
 import com.educandoweb.course.entites.pk.OrderItem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ManyToAny;
 
@@ -35,6 +36,10 @@ public class Order implements Serializable{
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
+
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order(){
 
@@ -75,6 +80,14 @@ public class Order implements Serializable{
 
     public User getClient() {
         return client;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public Set<OrderItem> getItems(){
